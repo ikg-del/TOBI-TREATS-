@@ -13,6 +13,7 @@ const cartOrderNote = document.getElementById('cartOrderNote');
 const mobileMenuToggle = document.getElementById('mobileMenuToggle');
 const siteNav = document.getElementById('siteNav');
 const productGrid = document.getElementById('productGrid');
+<<<<<<< HEAD
 const featuredGrid = document.getElementById('featuredGrid');
 const galleryGrid = document.getElementById('galleryGrid');
 const accountToggle = document.getElementById('accountToggle');
@@ -39,6 +40,11 @@ const SESSION_KEY = 'tobiTreatsCurrentUser';
 const PURCHASES_KEY = 'tobiTreatsPurchaseHistory';
 const WHATSAPP_NUMBER = '2349015636246';
 const CATEGORIES = ['All', 'Cake', 'Parfait', 'Pancake', 'Bread'];
+=======
+
+const STORAGE_KEY = 'tobiTreatsCart';
+const WHATSAPP_NUMBER = '2349015636246';
+>>>>>>> origin/main
 
 const products = [
   {
@@ -48,8 +54,11 @@ const products = [
     price: 40000,
     image: 'image/cake 2.jpeg',
     alt: 'Birthday cake',
+<<<<<<< HEAD
     description: 'Classic celebration cake with rich buttercream and elegant finish.',
     featured: true,
+=======
+>>>>>>> origin/main
   },
   {
     id: 'cake-redvelvet',
@@ -58,8 +67,11 @@ const products = [
     price: 1500,
     image: 'image/cake 5.jpeg',
     alt: 'Red velvet cake',
+<<<<<<< HEAD
     description: 'Soft red velvet layers with creamy filling and silky texture.',
     featured: false,
+=======
+>>>>>>> origin/main
   },
   {
     id: 'cake-whipped',
@@ -68,8 +80,11 @@ const products = [
     price: 35000,
     image: 'image/cake 3.jpeg',
     alt: 'Whipped cream cake',
+<<<<<<< HEAD
     description: 'Elegant seven-layer cake topped with whipped cream and petals.',
     featured: true,
+=======
+>>>>>>> origin/main
   },
   {
     id: 'parfait-fruit',
@@ -78,8 +93,11 @@ const products = [
     price: 4500,
     image: 'image/cake pic 1.jpeg',
     alt: 'Fruit parfait',
+<<<<<<< HEAD
     description: 'Fresh fruit, creamy layers, and crunchy texture in every bite.',
     featured: true,
+=======
+>>>>>>> origin/main
   },
   {
     id: 'parfait-cake',
@@ -88,8 +106,11 @@ const products = [
     price: 3500,
     image: 'image/parfait 1.jpeg',
     alt: 'Cake parfait',
+<<<<<<< HEAD
     description: 'Creamy parfait layered with cake pieces and berry sauce.',
     featured: false,
+=======
+>>>>>>> origin/main
   },
   {
     id: 'pancake-simple',
@@ -98,8 +119,11 @@ const products = [
     price: 2800,
     image: 'image/pancakes 4.jpeg',
     alt: 'Fluffy pancakes',
+<<<<<<< HEAD
     description: 'Light pancakes with syrup, berries, and warm comfort.',
     featured: false,
+=======
+>>>>>>> origin/main
   },
   {
     id: 'pancake-full',
@@ -108,8 +132,11 @@ const products = [
     price: 3500,
     image: 'image/pancakes 3.jpeg',
     alt: 'Breakfast box pancakes',
+<<<<<<< HEAD
     description: 'A hearty breakfast box with pancakes, eggs, and glazed sausage.',
     featured: true,
+=======
+>>>>>>> origin/main
   },
   {
     id: 'bread-two',
@@ -118,8 +145,11 @@ const products = [
     price: 1500,
     image: 'image/Bread 2.jpeg',
     alt: 'Banana bread',
+<<<<<<< HEAD
     description: 'Moist banana bread loaves with warm cinnamon and honey notes.',
     featured: false,
+=======
+>>>>>>> origin/main
   },
   {
     id: 'bread-loaf',
@@ -128,16 +158,24 @@ const products = [
     price: 5000,
     image: 'image/Bread 1.jpeg',
     alt: 'Banana bread loaf',
+<<<<<<< HEAD
     description: 'Premium loaf with golden crust and tender crumb.',
     featured: false,
+=======
+>>>>>>> origin/main
   },
 ];
 
 let cart = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+<<<<<<< HEAD
 let users = JSON.parse(localStorage.getItem(USERS_KEY)) || [];
 let currentUser = JSON.parse(localStorage.getItem(SESSION_KEY)) || null;
 let purchaseHistory = JSON.parse(localStorage.getItem(PURCHASES_KEY)) || [];
 let testimonialIndex = 0;
+=======
+
+const categories = ['Cake', 'Parfait', 'Pancake', 'Bread'];
+>>>>>>> origin/main
 
 function formatPrice(value) {
   return new Intl.NumberFormat('en-NG', {
@@ -151,15 +189,76 @@ function createWhatsAppLink(message) {
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 }
 
+<<<<<<< HEAD
 function sendWhatsAppMessage(message) {
   const whatsappUrl = createWhatsAppLink(message);
   window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+=======
+function buildCartSummaryText() {
+  return cart
+    .map((item) => `- ${item.quantity} x ${item.name} (${formatPrice(item.price)} each)`)
+    .join('\n');
+}
+
+function buildOrderMessage(details = {}) {
+  const messageLines = [
+    'Hello Tobi Treats,',
+    'I would like to place an order.',
+    '',
+    'Order details:',
+    buildCartSummaryText(),
+    `Total: ${formatPrice(getCartTotal())}`,
+    '',
+    `Delivery location: ${details.location || 'Not provided'}`,
+    `Customer WhatsApp: ${details.phone || 'Not provided'}`,
+    details.name ? `Customer name: ${details.name}` : '',
+    details.email ? `Customer email: ${details.email}` : '',
+    '',
+    'Please confirm my request and delivery details.',
+  ];
+  return messageLines.filter(Boolean).join('\n');
+}
+
+function sendWhatsAppMessage(message) {
+  window.open(createWhatsAppLink(message), '_blank');
+}
+
+function renderProducts() {
+  const html = categories
+    .map((category) => {
+      const items = products.filter((product) => product.category === category);
+      if (!items.length) return '';
+      const cards = items
+        .map(
+          (product) => `
+            <article class="product-card">
+              <img src="${product.image}" alt="${product.alt}" onerror="this.onerror=null;this.src='https://via.placeholder.com/440x320?text=Replace+Image'" />
+              <div class="product-card-content">
+                <h3>${product.name}</h3>
+                <p class="product-price">${formatPrice(product.price)}</p>
+                <button class="button add-cart" data-product-id="${product.id}">Add to Cart</button>
+              </div>
+            </article>
+          `
+        )
+        .join('');
+      return `
+        <div class="category-block">
+          <h3>${category} Collection</h3>
+          <div class="products-grid-inner">${cards}</div>
+        </div>
+      `;
+    })
+    .join('');
+  productGrid.innerHTML = html;
+>>>>>>> origin/main
 }
 
 function saveCart() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
 }
 
+<<<<<<< HEAD
 function saveUsers() {
   localStorage.setItem(USERS_KEY, JSON.stringify(users));
 }
@@ -176,18 +275,24 @@ function savePurchaseHistory() {
   localStorage.setItem(PURCHASES_KEY, JSON.stringify(purchaseHistory));
 }
 
+=======
+>>>>>>> origin/main
 function getCartCount() {
   return cart.reduce((sum, item) => sum + item.quantity, 0);
 }
 
+<<<<<<< HEAD
 function getCartTotal() {
   return cart.reduce((sum, item) => sum + item.quantity * item.price, 0);
 }
 
+=======
+>>>>>>> origin/main
 function updateCartCount() {
   cartCount.textContent = getCartCount();
 }
 
+<<<<<<< HEAD
 function renderFeaturedProducts() {
   const featuredItems = products.filter((product) => product.featured);
   featuredGrid.innerHTML = featuredItems
@@ -238,6 +343,10 @@ function renderProducts(category = 'All') {
       `
     )
     .join('');
+=======
+function getCartTotal() {
+  return cart.reduce((sum, item) => sum + item.quantity * item.price, 0);
+>>>>>>> origin/main
 }
 
 function renderCart() {
@@ -257,21 +366,32 @@ function renderCart() {
             <h4>${item.name}</h4>
             <span>${formatPrice(item.price)} each</span>
             <div class="quantity-controls" data-product-id="${item.id}">
+<<<<<<< HEAD
               <button class="decrease" type="button" aria-label="Decrease quantity">-</button>
               <span>${item.quantity}</span>
               <button class="increase" type="button" aria-label="Increase quantity">+</button>
               <button class="remove-item" type="button">Remove</button>
+=======
+              <button class="decrease" aria-label="Decrease quantity">-</button>
+              <span>${item.quantity}</span>
+              <button class="increase" aria-label="Increase quantity">+</button>
+              <button class="remove-item" data-action="remove">Remove</button>
+>>>>>>> origin/main
             </div>
           </div>
         </div>
       `
     )
     .join('');
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/main
   cartTotalElement.textContent = formatPrice(getCartTotal());
   updateCartCount();
 }
 
+<<<<<<< HEAD
 function formatOrderDate(dateString) {
   return new Intl.DateTimeFormat('en-NG', {
     day: 'numeric',
@@ -421,29 +541,44 @@ function recordPurchaseHistory() {
   renderRecentPurchases();
 }
 
+=======
+>>>>>>> origin/main
 function findProduct(productId) {
   return products.find((product) => product.id === productId);
 }
 
+<<<<<<< HEAD
 function addToCart(productId, quantity = 1) {
+=======
+function addToCart(productId) {
+>>>>>>> origin/main
   const product = findProduct(productId);
   if (!product) return;
   const existingItem = cart.find((item) => item.id === productId);
   if (existingItem) {
+<<<<<<< HEAD
     existingItem.quantity += quantity;
   } else {
     cart.push({ ...product, quantity });
+=======
+    existingItem.quantity += 1;
+  } else {
+    cart.push({ ...product, quantity: 1 });
+>>>>>>> origin/main
   }
   saveCart();
   renderCart();
 }
 
+<<<<<<< HEAD
 function reorderPurchasedItem(productId, quantity = 1) {
   const product = findProduct(productId);
   if (!product) return;
   addToCart(productId, quantity);
 }
 
+=======
+>>>>>>> origin/main
 function changeCartQuantity(productId, delta) {
   const item = cart.find((entry) => entry.id === productId);
   if (!item) return;
@@ -469,6 +604,7 @@ function closeCartDrawer() {
   cartDrawer.classList.remove('open');
 }
 
+<<<<<<< HEAD
 function openLightbox(src, caption) {
   lightboxImage.src = src;
   lightboxCaption.textContent = caption;
@@ -518,6 +654,25 @@ function handleCartControls(event) {
   } else if (event.target.classList.contains('decrease')) {
     changeCartQuantity(productId, -1);
   } else if (event.target.classList.contains('remove-item')) {
+=======
+function handleProductButtonClick(event) {
+  const button = event.target.closest('button[data-product-id]');
+  if (!button) return;
+  addToCart(button.dataset.productId);
+}
+
+function handleCartClick(event) {
+  const control = event.target.closest('button');
+  if (!control) return;
+  const wrapper = control.closest('.quantity-controls');
+  if (!wrapper) return;
+  const productId = wrapper.dataset.productId;
+  if (control.classList.contains('increase')) {
+    changeCartQuantity(productId, 1);
+  } else if (control.classList.contains('decrease')) {
+    changeCartQuantity(productId, -1);
+  } else if (control.dataset.action === 'remove') {
+>>>>>>> origin/main
     removeCartItem(productId);
   }
 }
@@ -528,14 +683,21 @@ function handleCheckout() {
     return;
   }
 
+<<<<<<< HEAD
   const phone = orderPhoneInput.value.trim();
   const location = orderLocationInput.value.trim();
+=======
+  const phone = orderPhoneInput?.value.trim();
+  const location = orderLocationInput?.value.trim();
+
+>>>>>>> origin/main
   if (!phone || !location) {
     cartOrderNote.textContent = 'Please add your WhatsApp number and delivery location before placing your order.';
     cartOrderNote.style.color = '#c0392b';
     return;
   }
 
+<<<<<<< HEAD
   const messageLines = [
     "Hello Tobi Treats,",
     'I would like to place an order:',
@@ -554,6 +716,14 @@ function handleCheckout() {
   recordPurchaseHistory();
   cartOrderNote.textContent = 'Your order request is being sent. Please complete it in WhatsApp.';
   cartOrderNote.style.color = '#2f855a';
+=======
+  const message = buildOrderMessage({ phone, location });
+  sendWhatsAppMessage(message);
+
+  cartOrderNote.textContent = 'Your order request has been sent. The owner will respond via WhatsApp with delivery details.';
+  cartOrderNote.style.color = '#2f855a';
+
+>>>>>>> origin/main
   cart = [];
   saveCart();
   renderCart();
@@ -565,14 +735,22 @@ function handleContactSubmit(event) {
   const name = contactForm.name.value.trim();
   const email = contactForm.email.value.trim();
   const phone = contactForm.phone.value.trim();
+<<<<<<< HEAD
   const message = contactForm.message.value.trim();
   if (!name || !email || !phone || !message) {
+=======
+  const location = contactForm.location.value.trim();
+  const messageDraft = contactForm.message.value.trim();
+
+  if (!name || !email || !phone || !messageDraft) {
+>>>>>>> origin/main
     formNote.textContent = 'Please fill in all required fields before sending your request.';
     formNote.style.color = '#c0392b';
     return;
   }
 
   const orderSummary = cart.length
+<<<<<<< HEAD
     ? `\n\nOrder request:\n${cart.map((item) => `${item.quantity} × ${item.name} — ${formatPrice(item.price * item.quantity)}`).join('\n')}\nTotal: ${formatPrice(getCartTotal())}`
     : '';
 
@@ -583,6 +761,19 @@ function handleContactSubmit(event) {
     `WhatsApp: ${phone}`,
     '',
     `Message: ${message}`,
+=======
+    ? `\n\nOrder request:\n${buildCartSummaryText()}\nTotal: ${formatPrice(getCartTotal())}`
+    : '';
+
+  const message = [
+    `Hello Tobi Treats,`,
+    `My name is ${name}.`, 
+    `Email: ${email}`,
+    `WhatsApp: ${phone}`,
+    location ? `Delivery location: ${location}` : '',
+    '',
+    `Message: ${messageDraft}`,
+>>>>>>> origin/main
     orderSummary,
     '',
     'Please confirm that you received my request and provide delivery details.',
@@ -590,12 +781,17 @@ function handleContactSubmit(event) {
     .filter(Boolean)
     .join('\n');
 
+<<<<<<< HEAD
   sendWhatsAppMessage(whatsappMessage);
+=======
+  sendWhatsAppMessage(message);
+>>>>>>> origin/main
   formNote.textContent = 'Thanks! Your request has been sent to WhatsApp. We will reply soon.';
   formNote.style.color = '#2f855a';
   contactForm.reset();
 }
 
+<<<<<<< HEAD
 function handleLoginSubmit(event) {
   event.preventDefault();
   const email = loginForm.email.value.trim().toLowerCase();
@@ -660,18 +856,23 @@ function handleRecentPurchasesClick(event) {
   openCartDrawer();
 }
 
+=======
+>>>>>>> origin/main
 function updateMenuToggleState() {
   const isOpen = siteNav.classList.contains('open');
   mobileMenuToggle.setAttribute('aria-expanded', String(isOpen));
   mobileMenuToggle.setAttribute('aria-label', isOpen ? 'Close navigation' : 'Open navigation');
 }
 
+<<<<<<< HEAD
 function handleAccountTabClick(event) {
   const button = event.target.closest('[data-account-tab]');
   if (!button) return;
   setAccountView(button.dataset.accountTab);
 }
 
+=======
+>>>>>>> origin/main
 function handleMobileMenuToggle() {
   siteNav.classList.toggle('open');
   updateMenuToggleState();
@@ -697,6 +898,7 @@ function initSmoothScrolling() {
   });
 }
 
+<<<<<<< HEAD
 function handleCategoryFilter(event) {
   const button = event.target.closest('.filter-button');
   if (!button) return;
@@ -752,10 +954,19 @@ function init() {
   document.addEventListener('click', handleMenuClick);
   cartItemsContainer.addEventListener('click', handleCartControls);
   recentPurchasesContainer.addEventListener('click', handleRecentPurchasesClick);
+=======
+function init() {
+  renderProducts();
+  renderCart();
+  initSmoothScrolling();
+  document.addEventListener('click', handleProductButtonClick);
+  cartItemsContainer.addEventListener('click', handleCartClick);
+>>>>>>> origin/main
   cartToggle.addEventListener('click', openCartDrawer);
   closeCart.addEventListener('click', closeCartDrawer);
   checkoutButton.addEventListener('click', handleCheckout);
   contactForm.addEventListener('submit', handleContactSubmit);
+<<<<<<< HEAD
   loginForm.addEventListener('submit', handleLoginSubmit);
   signupForm.addEventListener('submit', handleSignupSubmit);
   mobileMenuToggle.addEventListener('click', handleMobileMenuToggle);
@@ -771,16 +982,24 @@ function init() {
     toggle.addEventListener('click', () => togglePasswordVisibility(toggle));
   });
   accountStatus.addEventListener('click', handleAccountStatusClick);
+=======
+  mobileMenuToggle.addEventListener('click', handleMobileMenuToggle);
+>>>>>>> origin/main
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') {
       closeCartDrawer();
       closeMobileMenu();
+<<<<<<< HEAD
       closeAccountPanel();
     }
   });
 
   renderAccountStatus();
   renderRecentPurchases();
+=======
+    }
+  });
+>>>>>>> origin/main
 }
 
 window.addEventListener('DOMContentLoaded', init);
