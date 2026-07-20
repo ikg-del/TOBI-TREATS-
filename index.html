@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tobi Treats | Premium Bakery</title>
+  <meta name="description" content="Tobi Treats premium bakery website for handcrafted cakes, parfaits, pancakes and artisan bread." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#home" class="brand">
+        <img src="image/logo 3 (2).png" alt="Tobi Treats logo" class="brand-logo" onerror="this.style.display='none'" />
+        <span>Tobi Treats</span>
+      </a>
+      <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Open navigation" aria-expanded="false">
+        <i class="fas fa-bars"></i>
+      </button>
+      <nav class="site-nav" id="siteNav">
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#featured">Featured</a></li>
+          <li><a href="#menu">Menu</a></li>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#contact">Contact Us</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <button class="account-trigger" id="accountToggle" aria-label="Open account panel">
+          <i class="fas fa-user"></i>
+        </button>
+        <button class="cart-trigger" id="cartToggle" aria-label="Open cart">
+          <span class="cart-count" id="cartCount">0</span>
+          <i class="fas fa-shopping-basket"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <aside class="cart-drawer" id="cartDrawer" aria-label="Shopping cart drawer">
+    <div class="cart-drawer-inner">
+      <div class="cart-header">
+        <div>
+          <span class="eyebrow">Your Selections</span>
+          <h3>Cart Summary</h3>
+        </div>
+        <button class="drawer-close" id="closeCart" aria-label="Close cart"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="cart-items" id="cartItems"></div>
+      <div class="cart-order-info">
+        <div class="form-group">
+          <label for="orderPhone">WhatsApp number</label>
+          <input type="tel" id="orderPhone" name="orderPhone" placeholder="+2349012345678" />
+        </div>
+        <div class="form-group">
+          <label for="orderLocation">Delivery address or pickup</label>
+          <textarea id="orderLocation" name="orderLocation" rows="2" placeholder="E.g. 12 Toyin Street, Ikeja"></textarea>
+        </div>
+      </div>
+      <div class="cart-footer">
+        <div class="cart-total">
+          <span>Total</span>
+          <strong id="cartTotal">₦0</strong>
+        </div>
+        <button class="button button-primary checkout-button" id="checkoutButton">Checkout via WhatsApp</button>
+        <p class="cart-note" id="cartOrderNote"></p>
+      </div>
+    </div>
+  </aside>
+
+  <section class="account-overlay" id="accountOverlay" aria-hidden="true">
+    <div class="account-panel" role="dialog" aria-modal="true" aria-labelledby="accountPanelTitle">
+      <div class="account-panel-header">
+        <div>
+          <span class="eyebrow">Member Access</span>
+          <h3 id="accountPanelTitle">Sign In or Create an Account</h3>
+          <p id="accountPanelSubtitle">Save your details and revisit the cakes, parfaits, and breads you ordered before.</p>
+        </div>
+        <button class="drawer-close" id="closeAccount" aria-label="Close account panel"><i class="fas fa-times"></i></button>
+      </div>
+
+      <div class="account-status" id="accountStatus"></div>
+
+      <div class="account-tabs" role="tablist" aria-label="Account views">
+        <button type="button" class="account-tab active" data-account-tab="signin" role="tab" aria-selected="true">Sign In</button>
+        <button type="button" class="account-tab" data-account-tab="signup" role="tab" aria-selected="false">Sign Up</button>
+        <button type="button" class="account-tab" data-account-tab="history" role="tab" aria-selected="false">Recent Purchases</button>
+      </div>
+
+      <div class="account-panels">
+        <section class="account-panel-view active" data-account-view="signin" role="tabpanel">
+          <form class="account-form" id="loginForm">
+            <div class="form-group">
+              <label for="loginEmail">Email Address</label>
+              <input type="email" id="loginEmail" name="email" placeholder="you@example.com" required />
+            </div>
+            <div class="form-group">
+              <label for="loginPassword">Password</label>
+              <div class="password-input-wrap">
+                <input type="password" id="loginPassword" name="password" placeholder="Enter your password" required />
+                <button type="button" class="password-toggle" data-password-toggle="loginPassword" aria-label="Show password">
+                  <i class="fas fa-eye"></i>
+                </button>
+              </div>
+            </div>
+            <button type="submit" class="button button-primary">Sign In</button>
+            <p class="form-note" id="loginNote"></p>
+          </form>
+        </section>
+
+        <section class="account-panel-view" data-account-view="signup" role="tabpanel">
+          <form class="account-form" id="signupForm">
+            <div class="form-group">
+              <label for="signupName">Full Name</label>
+              <input type="text" id="signupName" name="name" placeholder="Your full name" required />
+            </div>
+            <div class="form-group">
+              <label for="signupEmail">Email Address</label>
+              <input type="email" id="signupEmail" name="email" placeholder="you@example.com" required />
+            </div>
+            <div class="form-group">
+              <label for="signupPhone">Phone Number</label>
+              <input type="tel" id="signupPhone" name="phone" placeholder="+234 901 234 5678" required />
+            </div>
+            <div class="form-group">
+              <label for="signupPassword">Password</label>
+              <div class="password-input-wrap">
+                <input type="password" id="signupPassword" name="password" placeholder="Create a password" required />
+                <button type="button" class="password-toggle" data-password-toggle="signupPassword" aria-label="Show password">
+                  <i class="fas fa-eye"></i>
+                </button>
+              </div>
+            </div>
+            <button type="submit" class="button button-primary">Create Account</button>
+            <p class="form-note" id="signupNote"></p>
+          </form>
+        </section>
+
+        <section class="account-panel-view" data-account-view="history" role="tabpanel">
+          <div class="recent-purchases" id="recentPurchases"></div>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-copy">
+        <span class="eyebrow">Welcome to</span>
+        <h1>Tobi Treats</h1>
+        <p>Where every bite brings happiness. We specialize in handcrafted cakes, creamy parfaits, fluffy pancakes, and freshly baked bread made with love and premium ingredients.</p>
+        <div class="hero-actions">
+          <a href="#menu" class="button button-primary">Order Now</a>
+          <a href="#featured" class="button button-secondary">View Menu</a>
+          <button type="button" class="button button-secondary" id="accountCta">Sign In / Join</button>
+        </div>
+        <div class="hero-highlights">
+          <div><i class="fas fa-star"></i> Premium bakery experience</div>
+          <div><i class="fas fa-heart"></i> Handcrafted with love</div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-image-frame">
+          <img id="heroImage" src="image/cake 2.jpeg" alt="Featured cake" onerror="this.onerror=null;this.src='https://via.placeholder.com/600x600?text=Featured+Cake'" />
+          <div class="hero-badge">
+            <span>Signature</span>
+            <strong id="heroBadgeText">Luxury Cakes</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="featured-section" id="featured">
+      <div class="container section-heading">
+        <span>Best Sellers</span>
+        <h2>Bakery favorites your guests will love</h2>
+        <p>Every product is styled for celebration, flavor, and unforgettable moments.</p>
+      </div>
+      <div class="container feature-grid" id="featuredGrid"></div>
+    </section>
+
+    <section class="why-section">
+      <div class="container section-heading">
+        <span>Why Choose Us</span>
+        <h2>Luxury bakery service made easy</h2>
+      </div>
+      <div class="container why-grid">
+        <article class="why-card">
+          <div class="why-icon">🎂</div>
+          <h3>Fresh Ingredients</h3>
+          <p>Only premium dairy, seasonal fruit, and artisan baking ingredients go into every treat.</p>
+        </article>
+        <article class="why-card">
+          <div class="why-icon">🚚</div>
+          <h3>Fast Delivery</h3>
+          <p>Reliable delivery and pickup coordination keep your orders fresh and on time.</p>
+        </article>
+        <article class="why-card">
+          <div class="why-icon">💖</div>
+          <h3>Made With Love</h3>
+          <p>Every order is handcrafted and decorated with extra care for your celebration.</p>
+        </article>
+        <article class="why-card">
+          <div class="why-icon">⭐</div>
+          <h3>Premium Quality</h3>
+          <p>Elegant presentations, refined flavors, and unforgettable textures every time.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="menu-section" id="menu">
+      <div class="container section-heading">
+        <span>Menu</span>
+        <h2>Explore our delightful bakery categories</h2>
+      </div>
+      <div class="container menu-controls">
+        <div class="filter-list" id="categoryFilters"></div>
+      </div>
+      <div class="container products-grid" id="productGrid"></div>
+    </section>
+
+    <section class="testimonials-section">
+      <div class="container section-heading">
+        <span>Customer Reviews</span>
+        <h2>What our happy guests are saying</h2>
+      </div>
+      <div class="container testimonials-slider" id="testimonialsSlider">
+        <article class="testimonial-card active">
+          <div class="rating">★★★★★</div>
+          <p>"The birthday cake exceeded my expectations. Beautiful and delicious!"</p>
+          <span>— Sarah O.</span>
+        </article>
+        <article class="testimonial-card">
+          <div class="rating">★★★★★</div>
+          <p>"Best fruit parfait I've ever had. Perfect sweetness and texture."</p>
+          <span>— David A.</span>
+        </article>
+        <article class="testimonial-card">
+          <div class="rating">★★★★★</div>
+          <p>"Fast delivery and amazing customer service. The packaging was gorgeous."</p>
+          <span>— Grace M.</span>
+        </article>
+      </div>
+    </section>
+
+    <section class="gallery-section">
+      <div class="container section-heading">
+        <span>Gallery</span>
+        <h2>Delicious moments from the bakery</h2>
+      </div>
+      <div class="container gallery-grid" id="galleryGrid">
+        <button class="gallery-item" data-src="image/cake 2.jpeg" data-caption="Signature Cake">
+          <img src="image/cake 2.jpeg" alt="Signature cake" onerror="this.onerror=null;this.src='https://via.placeholder.com/420x360?text=Gallery+Image'" />
+          <div class="gallery-overlay"><h3>Cakes</h3></div>
+        </button>
+        <button class="gallery-item" data-src="image/parfait 1.jpeg" data-caption="Fruit Parfait">
+          <img src="image/parfait 1.jpeg" alt="Fruit parfait" onerror="this.onerror=null;this.src='https://via.placeholder.com/420x360?text=Gallery+Image'" />
+          <div class="gallery-overlay"><h3>Parfaits</h3></div>
+        </button>
+        <button class="gallery-item" data-src="image/pancakes 4.jpeg" data-caption="Fluffy Pancakes">
+          <img src="image/pancakes 4.jpeg" alt="Fluffy pancakes" onerror="this.onerror=null;this.src='https://via.placeholder.com/420x360?text=Gallery+Image'" />
+          <div class="gallery-overlay"><h3>Pancakes</h3></div>
+        </button>
+        <button class="gallery-item" data-src="image/Bread 1.jpeg" data-caption="Banana Bread">
+          <img src="image/Bread 1.jpeg" alt="Banana bread" onerror="this.onerror=null;this.src='https://via.placeholder.com/420x360?text=Gallery+Image'" />
+          <div class="gallery-overlay"><h3>Bread</h3></div>
+        </button>
+      </div>
+    </section>
+
+    <section class="about-section" id="about">
+      <div class="container about-grid">
+        <div class="about-copy">
+          <span class="eyebrow">About Us</span>
+          <h2>Crafting memorable bakery experiences</h2>
+          <p>Tobi Treats is dedicated to creating memorable experiences through freshly baked cakes, premium parfaits, delicious pancakes, and artisan bread. We combine quality ingredients, creativity, and passion to deliver exceptional treats for every occasion.</p>
+          <div class="about-values">
+            <div>
+              <h3>Mission</h3>
+              <p>To deliver elegant desserts that delight every celebration, crafted with premium ingredients and thoughtful service.</p>
+            </div>
+            <div>
+              <h3>Vision</h3>
+              <p>To be the most trusted premium bakery in Lagos, known for taste, presentation, and warmth.</p>
+            </div>
+          </div>
+        </div>
+        <div class="about-image">
+          <img src="image/cake pic 1.jpeg" alt="Bakery story" onerror="this.onerror=null;this.src='https://via.placeholder.com/620x620?text=About+Image'" />
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-section" id="contact">
+      <div class="container section-heading">
+        <span>Contact Us</span>
+        <h2>Ready to order your next sweet celebration?</h2>
+      </div>
+      <div class="container contact-grid">
+        <div class="contact-cards">
+          <article class="contact-card">
+            <i class="fas fa-envelope"></i>
+            <h3>Email</h3>
+            <p>bakareoluwatobiloba02@gmail.com</p>
+          </article>
+          <article class="contact-card">
+            <i class="fab fa-whatsapp"></i>
+            <h3>WhatsApp</h3>
+            <p><a href="https://wa.me/2349015636246" target="_blank">+234 901 563 6246</a></p>
+          </article>
+          <article class="contact-card">
+            <i class="fas fa-map-marker-alt"></i>
+            <h3>Location</h3>
+            <p>Lagos, Nigeria</p>
+          </article>
+        </div>
+
+        <form class="contact-form" id="contactForm">
+          <div class="form-group">
+            <label for="fullName">Full Name</label>
+            <input type="text" id="fullName" name="name" placeholder="Your full name" required />
+          </div>
+          <div class="form-group">
+            <label for="contactEmail">Email Address</label>
+            <input type="email" id="contactEmail" name="email" placeholder="you@example.com" required />
+          </div>
+          <div class="form-group">
+            <label for="contactPhone">Phone Number</label>
+            <input type="tel" id="contactPhone" name="phone" placeholder="+234 901 234 5678" required />
+          </div>
+          <div class="form-group full-width">
+            <label for="contactMessage">Message</label>
+            <textarea id="contactMessage" name="message" rows="5" placeholder="Tell us about your order or enquiry" required></textarea>
+          </div>
+          <button type="submit" class="button button-primary">Send Enquiry</button>
+          <p class="form-note" id="formNote"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <div class="lightbox-content">
+      <button class="lightbox-close" id="closeLightbox" aria-label="Close preview"><i class="fas fa-times"></i></button>
+      <img src="" alt="Preview image" id="lightboxImage" />
+      <p id="lightboxCaption"></p>
+    </div>
+  </div>
+
+  <a href="https://wa.me/2349015636246?text=Hello%20Tobi%20Treats%2C%20I%20would%20like%20to%20make%20an%20enquiry." class="whatsapp-float" target="_blank" aria-label="WhatsApp chat with Tobi Treats">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a href="#home" class="brand brand-footer"><span class="brand-mark">T</span> Tobi Treats</a>
+        <p>Elegant desserts crafted for your sweetest moments.</p>
+      </div>
+      <div class="footer-links">
+        <div>
+          <h4>Quick Links</h4>
+          <a href="#home">Home</a>
+          <a href="#menu">Menu</a>
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <div>
+          <h4>Follow Us</h4>
+          <a href="#"><i class="fab fa-instagram"></i> @cakemadebytobi</a>
+          <a href="#"><i class="fab fa-tiktok"></i> @cakeeeeee61</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Tobi Treats. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
